@@ -40,14 +40,17 @@ public class BubbleFrame extends JFrame{
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				System.out.println(e.getKeyCode());
 				
 				switch(e.getKeyCode()) {
 					case KeyEvent.VK_LEFT:
-						player.left();
+						if(!player.isLeft()) {
+							player.left();
+						}
 						break;
 					case KeyEvent.VK_RIGHT:
-						player.right();
+						if(!player.isRight()) {
+							player.right();
+						}
 						break;
 					case KeyEvent.VK_UP:
 						player.up();

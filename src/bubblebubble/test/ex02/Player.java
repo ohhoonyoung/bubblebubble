@@ -3,16 +3,20 @@ package bubblebubble.test.ex02;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Player extends JLabel implements Moveable {
 
 	private int x;
 	private int y;
-	
+
 	private boolean left;
 	private boolean right;
 	private boolean up;
 	private boolean down;
-	
 
 	private ImageIcon playerR, playerL;
 
@@ -29,7 +33,7 @@ public class Player extends JLabel implements Moveable {
 	private void initSetting() {
 		x = 55;
 		y = 535;
-		
+
 		left = false;
 		right = false;
 		up = false;
@@ -42,17 +46,38 @@ public class Player extends JLabel implements Moveable {
 
 	@Override
 	public void left() {
-		setIcon(playerL);
-		x = x-10;
-		setLocation(x, y);
+		left = true;
+		new Thread(() -> {
+			while(left) {
+				setIcon(playerL);
+				x = x - 1;
+				setLocation(x, y);
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+		
 	}
 
 	@Override
 	public void right() {
-		setIcon(playerR);
-		x = x+10;
-		setLocation(x, y);
-		
+		right = true;
+		new Thread(() -> {
+			while(right) {
+				setIcon(playerR);
+				x = x + 1;
+				setLocation(x, y);
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
 	}
 
 	@Override
