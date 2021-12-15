@@ -27,6 +27,7 @@ public class Player extends JLabel implements Moveable {
 	public Player() {
 		initObject();
 		initSetting();
+		initBackgroundPlayerService();
 	}
 
 	private void initObject() {
@@ -35,7 +36,7 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	private void initSetting() {
-		x = 55;
+		x = 65;
 		y = 535;
 
 		left = false;
@@ -47,11 +48,14 @@ public class Player extends JLabel implements Moveable {
 		setSize(50, 50);
 		setLocation(x, y);
 	}
+	
+	private void initBackgroundPlayerService() {
+		new Thread(new BackgroundPlayerService(this)).start();
+	}
 
 	@Override
 	public void left() {
 		left = true;
-		System.out.println("left");
 		new Thread(() -> {
 			while(left) {
 				setIcon(playerL);
@@ -70,7 +74,6 @@ public class Player extends JLabel implements Moveable {
 	@Override
 	public void right() {
 		right = true;
-		System.out.println("right");
 		new Thread(() -> {
 			while(right) {
 				setIcon(playerR);
@@ -90,13 +93,12 @@ public class Player extends JLabel implements Moveable {
 	@Override
 	public void up() {
 		up = true;
-		System.out.println("up");
 		new Thread(()->{
 			for(int i=0; i<130/JUMPSPEED; i++) {
 				y = y - JUMPSPEED;
 				setLocation(x, y);
 				try {
-					Thread.sleep(10);
+					Thread.sleep(5);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -110,14 +112,13 @@ public class Player extends JLabel implements Moveable {
 
 	@Override
 	public void down() {
-		System.out.println("down");
 		down = true;
 		new Thread(() ->{
 			for(int i=0; i<130/JUMPSPEED; i++) {
 				y = y + JUMPSPEED;
 				setLocation(x, y);
 				try {
-					Thread.sleep(10);
+					Thread.sleep(3);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
