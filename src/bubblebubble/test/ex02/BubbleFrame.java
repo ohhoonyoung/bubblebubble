@@ -57,6 +57,19 @@ public class BubbleFrame extends JFrame{
 						break;
 				}
 			}
+			
+			// 키보드 해제 이벤트 핸들러
+			@Override
+			public void keyReleased(KeyEvent e) {
+				switch(e.getKeyCode()) {
+				case KeyEvent.VK_LEFT:
+					player.setLeft(false);
+					break;
+				case KeyEvent.VK_RIGHT:
+					player.setRight(false);
+					break;
+				}
+			}
 		});
 	}
 	
